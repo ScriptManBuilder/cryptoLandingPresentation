@@ -14,32 +14,51 @@ import { SectionContainer, SectionLabel, SectionTitle, SectionSubtitle } from '.
 
 const scrollToContact = () =>
   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-
 const PLANS = [
   {
     tier: 'Starter',
-    amount: '$49',
-    period: '/mo',
-    desc: 'Good entry point for live testing with real capital.',
+    amount: '$29',
+    period: '/one-time',
+    desc: 'Perfect for evaluation, testing and validating the strategy in live market conditions.',
     featured: false,
-    features: ['Up to 10 active pairs', 'Basic risk controls', 'Email support', '1 license key'],
+    features: [
+      '90+ Supported Trading Pairs',
+      'Testnet & Mainnet Trading',
+      'Telegram Critical Alerts',
+      'Email Support',
+      'Basic User Guide',
+    ],
   },
   {
-    tier: 'Pro',
-    amount: '$99',
-    period: '/mo',
-    desc: 'Full access — no limits on pairs or features.',
+    tier: 'Professional',
+    amount: '$79',
+    period: '/one-time',
+    desc: 'Full-featured trading system with source code access and advanced customization.',
     featured: true,
     badge: 'Most Popular',
-    features: ['Unlimited pairs', 'All risk modules', 'Priority support', 'Strategy updates', '2 license keys'],
+    features: [
+      '90+ Supported Trading Pairs',
+      'All Risk Management Modules',
+      'Priority Support',
+      'Strategy Updates',
+      'Full Source Code Access',
+      'Complete User Documentation',
+    ],
   },
   {
-    tier: 'Lifetime',
-    amount: '$299',
-    period: ' once',
-    desc: 'Pay once, use forever. Best long-term value.',
+    tier: 'Ultimate',
+    amount: '$149',
+    period: '/once',
+    desc: 'One-time purchase with everything included for long-term operation and ownership.',
     featured: false,
-    features: ['Everything in Pro', 'Lifetime updates', 'Direct support', '3 license keys'],
+    features: [
+      'Everything In Professional',
+      'Direct Developer Support',
+      'Lifetime Updates',
+      'Source Code Ownership',
+      'Ready-Made Presets (1m / 5m / 15m)',
+      'Optimized Strategy Configurations',
+    ],
   },
 ];
 

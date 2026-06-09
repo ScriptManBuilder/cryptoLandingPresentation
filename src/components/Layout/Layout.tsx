@@ -1,9 +1,5 @@
 import { useState, type FormEvent } from 'react';
 import {
-  NavBar,
-  NavLogo,
-  NavLinks,
-  NavCTA,
   ContactSection,
   ContactLayout,
   ContactInfo,
@@ -22,42 +18,12 @@ import {
   FormRow,
   FormSubmit,
   FormDisclaimer,
-  FooterWrapper,
-  FooterTop,
-  FooterBrand,
-  FooterContact,
-  FooterContactItem,
-  FooterCol,
-  FooterBottom,
 } from '../../assets/styles/components/Layout.styles';
 
-const scrollToContact = () => {
-  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-};
-
-export function Navbar() {
-  return (
-    <NavBar>
-      <NavLogo>
-        <span className="dot" />
-        <span className="name">
-          Momentum<span>Scalper</span>
-        </span>
-      </NavLogo>
-
-      <NavLinks>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#features">Features</a></li>
-        <li><a href="#trading-logic">Strategy</a></li>
-        <li><a href="#risk">Risk</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </NavLinks>
-
-      <NavCTA onClick={scrollToContact}>Request Access</NavCTA>
-    </NavBar>
-  );
-}
+const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? 'contact@gmail.com';
+const SUPPORT_EMAIL  = import.meta.env.VITE_SUPPORT_EMAIL  ?? 'support@gmail.com';
+const TELEGRAM_URL   = import.meta.env.VITE_TELEGRAM       ?? 'https://t.me/placeholder';
+const TELEGRAM_HANDLE = TELEGRAM_URL.replace('https://t.me/', '@');
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
@@ -83,27 +49,27 @@ export function ContactForm() {
           </ContactSubtitle>
 
           <ContactMethods>
-            <ContactMethod href="mailto:contact@gmail.com">
+            <ContactMethod href={`mailto:${CONTACT_EMAIL}`}>
               <span className="icon">✉️</span>
               <div className="details">
                 <div className="label">General</div>
-                <div className="value">contact@gmail.com</div>
+                <div className="value">{CONTACT_EMAIL}</div>
               </div>
             </ContactMethod>
 
-            <ContactMethod href="mailto:support@gmail.com">
+            <ContactMethod href={`mailto:${SUPPORT_EMAIL}`}>
               <span className="icon">🛠️</span>
               <div className="details">
                 <div className="label">Support</div>
-                <div className="value">support@gmail.com</div>
+                <div className="value">{SUPPORT_EMAIL}</div>
               </div>
             </ContactMethod>
 
-            <ContactMethod href="https://t.me/placeholder" target="_blank" rel="noopener noreferrer">
+            <ContactMethod href={TELEGRAM_URL} target="_blank" rel="noopener noreferrer">
               <span className="icon">✈️</span>
               <div className="details">
                 <div className="label">Telegram</div>
-                <div className="value">@MomentumScalper</div>
+                <div className="value">{TELEGRAM_HANDLE}</div>
               </div>
             </ContactMethod>
           </ContactMethods>
@@ -176,80 +142,5 @@ export function ContactForm() {
         </FormCard>
       </ContactLayout>
     </ContactSection>
-  );
-}
-
-export function PageFooter() {
-  return (
-    <FooterWrapper>
-      <FooterTop>
-        <FooterBrand>
-          <div className="logo">
-            <span className="dot" />
-            <span className="name">
-              Momentum<span>Scalper</span>
-            </span>
-          </div>
-          <p className="tagline">
-            Automated crypto futures trading powered by momentum analysis and risk management.
-          </p>
-          <FooterContact>
-            <FooterContactItem href="mailto:contact@gmail.com">
-              <span className="icon">✉️</span>
-              contact@gmail.com
-            </FooterContactItem>
-            <FooterContactItem href="mailto:support@gmail.com">
-              <span className="icon">🛠️</span>
-              support@gmail.com
-            </FooterContactItem>
-            <FooterContactItem href="https://t.me/placeholder" target="_blank" rel="noopener noreferrer">
-              <span className="icon">✈️</span>
-              @MomentumScalper
-            </FooterContactItem>
-          </FooterContact>
-        </FooterBrand>
-
-        <FooterCol>
-          <div className="col-title">Product</div>
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#trading-logic">Strategy</a></li>
-            <li><a href="#screenshots">Screenshots</a></li>
-          </ul>
-        </FooterCol>
-
-        <FooterCol>
-          <div className="col-title">Details</div>
-          <ul>
-            <li><a href="#risk">Risk Management</a></li>
-            <li><a href="#technology">Technology</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </FooterCol>
-
-        <FooterCol>
-          <div className="col-title">Contact</div>
-          <ul>
-            <li><a href="mailto:contact@gmail.com">General Inquiries</a></li>
-            <li><a href="mailto:support@gmail.com">Support</a></li>
-            <li><a href="https://t.me/placeholder" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-            <li><a href="#contact">Request Access</a></li>
-          </ul>
-        </FooterCol>
-      </FooterTop>
-
-      <FooterBottom>
-        <span className="copy">
-          © {new Date().getFullYear()} MomentumScalper. All rights reserved.
-        </span>
-        <div className="legal">
-          <a href="#">Risk Disclaimer</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-        </div>
-      </FooterBottom>
-    </FooterWrapper>
   );
 }

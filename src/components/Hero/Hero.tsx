@@ -14,6 +14,7 @@ import {
   StatItem,
 } from '../../assets/styles/components/Hero.styles';
 import DataCore from '../DataCore/DataCore';
+import UnlockPackage from '../lockSection/lockSection';
 
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -40,6 +41,8 @@ export default function Hero() {
               <PrimaryButton onClick={() => scrollTo('contact')}>Request Access</PrimaryButton>
               <SecondaryButton onClick={() => scrollTo('screenshots')}>Watch Demo</SecondaryButton>
             </HeroButtons>
+
+            <UnlockPackage />
 
             <HeroStats>
               <StatItem>

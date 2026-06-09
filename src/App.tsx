@@ -7,12 +7,18 @@ import RiskManagement from './components/RiskManagement/RiskManagement';
 import Screenshots from './components/Screenshots/Screenshots';
 import Pricing from './components/Pricing/Pricing';
 import FAQ from './components/FAQ/FAQ';
-import { Navbar, ContactForm, PageFooter } from './components/Layout/Layout';
+import { ContactForm } from './components/Layout/Layout';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import TermsConditions from './pages/termsConditions';
+import PrivacyPolicy from './pages/privacyPolicy';
+import Disclaimer from './pages/disclaimer';
 
-function App() {
+function MainPage() {
   return (
     <>
-      <Navbar />
+      <Header />
       <main>
         <Hero />
         <WhatItDoes />
@@ -25,8 +31,21 @@ function App() {
         <FAQ />
         <ContactForm />
       </main>
-      <PageFooter />
+      <Footer />
     </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/disclaimer" element={<Disclaimer />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

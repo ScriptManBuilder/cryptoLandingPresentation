@@ -13,90 +13,152 @@ export const PricingSection = styled.section`
 
 export const PricingGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-  margin-top: 64px;
-  align-items: start;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 72px;
+  align-items: stretch;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin: 64px auto 0;
+  }
+
+  @media (max-width: 420px) {
+    gap: 16px;
+    margin-top: 40px;
+  }
 `;
 
 export const PricingCard = styled.div<{ $featured?: boolean }>`
-  padding: 40px 32px;
+  padding: 42px 36px;
   background: ${theme.colors.primary.cardBg};
-  backdrop-filter: blur(12px);
+  border-radius: ${theme.borderRadius.xl};
+  position: relative;
+  overflow: hidden;
+
   border: ${({ $featured }) =>
     $featured
-      ? `2px solid ${theme.colors.primary.borderStrong}`
+      ? `2px solid ${theme.colors.primary.accent}`
       : `1px solid ${theme.colors.primary.border}`};
-  border-radius: ${theme.borderRadius.xl};
-  transition: ${theme.transitions.normal};
-  position: relative;
+
   box-shadow: ${({ $featured }) =>
-    $featured ? theme.colors.shadows.greenAmbient : theme.colors.shadows.cardShadow};
+    $featured
+      ? '0 20px 60px rgba(57,255,20,0.15)'
+      : theme.colors.shadows.cardShadow};
+
+  transition: ${theme.transitions.normal};
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at top,
+      rgba(57,255,20,0.05),
+      transparent 60%
+    );
+    pointer-events: none;
+  }
 
   &:hover {
-    transform: translateY(-5px);
-    box-shadow: ${theme.colors.shadows.cardHover};
+    transform: translateY(-8px);
+    box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+  }
+
+  @media (max-width: 420px) {
+    padding: 28px 22px;
+  }
+
+  @media (max-width: 375px) {
+    padding: 24px 18px;
+  }
+
+  @media (max-width: 320px) {
+    padding: 20px 16px;
   }
 `;
 
 export const PricingBadge = styled.span`
   position: absolute;
-  top: -13px;
-  left: 50%;
-  transform: translateX(-50%);
+  top: 18px;
+  right: 18px;
+
   background: ${theme.colors.primary.accent};
   color: ${theme.colors.primary.black};
-  font-family: ${theme.fonts.heading};
-  font-size: 11px;
+
+  font-size: 10px;
   font-weight: 800;
-  letter-spacing: 2px;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
   text-transform: uppercase;
-  padding: 5px 18px;
-  border-radius: ${theme.borderRadius.full};
-  white-space: nowrap;
+  letter-spacing: 1.5px;
+
   box-shadow: ${theme.colors.shadows.neonGlowSm};
+
+  @media (max-width: 375px) {
+    font-size: 9px;
+    padding: 5px 10px;
+  }
 `;
 
 export const PricingTier = styled.div`
-  font-family: ${theme.fonts.body};
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2.5px;
+   font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
   text-transform: uppercase;
+
   color: ${theme.colors.primary.accentDark};
-  margin-bottom: 16px;
+
+  margin-bottom: 18px;
 `;
 
 export const PricingPrice = styled.div`
-  margin-bottom: 10px;
-  display: flex;
-  align-items: baseline;
-  gap: 4px;
+    margin-bottom: 18px;
 
   .amount {
-    font-family: ${theme.fonts.heading};
-    font-size: 52px;
-    font-weight: 800;
-    color: ${theme.colors.primary.text};
+    font-size: 64px;
+    font-weight: 900;
     line-height: 1;
-    letter-spacing: -2px;
+    letter-spacing: -3px;
   }
 
   .period {
-    font-family: ${theme.fonts.body};
     font-size: 14px;
     color: ${theme.colors.primary.textMuted};
+  }
+
+  @media (max-width: 420px) {
+    .amount {
+      font-size: 52px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .amount {
+      font-size: 44px;
+    }
   }
 `;
 
 export const PricingDesc = styled.p`
-  font-family: ${theme.fonts.body};
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.8;
   color: ${theme.colors.primary.textMuted};
-  margin-bottom: 28px;
-  line-height: 1.65;
-  border-bottom: 1px solid ${theme.colors.primary.border};
+
+  margin-bottom: 32px;
   padding-bottom: 24px;
+
+  border-bottom: 1px solid ${theme.colors.primary.border};
+
+  min-height: 80px;
+
+  @media (max-width: 420px) {
+    min-height: auto;
+  }
 `;
 
 export const PricingFeatures = styled.ul`
@@ -108,48 +170,65 @@ export const PricingFeatures = styled.ul`
 `;
 
 export const PricingFeatureItem = styled.li`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: ${theme.fonts.body};
+ display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
   font-size: 14px;
+  line-height: 1.6;
+
   color: ${theme.colors.primary.text};
 
   &::before {
-    content: '';
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-    background: rgba(57, 255, 20, 0.1);
-    border: 1px solid ${theme.colors.primary.borderMed};
-    border-radius: 50%;
-    background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%2300C72B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
+    content: '✓';
+    color: ${theme.colors.primary.accent};
+    font-weight: 700;
+    margin-top: 1px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 13px;
   }
 `;
 
 export const PricingButton = styled.button<{ $featured?: boolean }>`
-  width: 100%;
-  padding: 14px;
-  background: ${({ $featured }) =>
-    $featured ? theme.colors.primary.accent : 'transparent'};
-  color: ${({ $featured }) =>
-    $featured ? theme.colors.primary.black : theme.colors.primary.text};
-  font-family: ${theme.fonts.heading};
+   width: 100%;
+  margin-top: auto;
+
+  padding: 16px;
+
   font-size: 14px;
   font-weight: 700;
-  letter-spacing: 0.3px;
+
+  border-radius: 12px;
+
+  background: ${({ $featured }) =>
+    $featured
+      ? theme.colors.primary.accent
+      : 'transparent'};
+
+  color: ${({ $featured }) =>
+    $featured
+      ? theme.colors.primary.black
+      : theme.colors.primary.text};
+
   border: 1px solid ${({ $featured }) =>
-    $featured ? theme.colors.primary.accent : theme.colors.primary.border};
-  border-radius: ${theme.borderRadius.sm};
+    $featured
+      ? theme.colors.primary.accent
+      : theme.colors.primary.border};
+
   transition: ${theme.transitions.normal};
 
   &:hover {
     background: ${theme.colors.primary.accent};
     color: ${theme.colors.primary.black};
-    border-color: ${theme.colors.primary.accent};
-    box-shadow: ${theme.colors.shadows.neonGlowSm};
+
     transform: translateY(-2px);
+
+    box-shadow: 0 0 25px rgba(57,255,20,0.25);
+  }
+
+  @media (max-width: 375px) {
+    padding: 14px;
   }
 `;

@@ -49,7 +49,7 @@ const CanvasWrapper = styled.div`
   }
 `;
 /* ── Config ── */
-const CRYSTAL_COUNT = 8;
+const CRYSTAL_COUNT = 10;
 const NEON = 0x39ff14;
 const NEON_DIM = 0x00c72b;
 const WHITE = 0xffffff;
