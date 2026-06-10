@@ -18,7 +18,10 @@ import {
   FormRow,
   FormSubmit,
   FormDisclaimer,
+  FormAgreement, 
 } from '../../assets/styles/components/Layout.styles';
+import { Link } from 'react-router-dom';
+
 
 const CONTACT_EMAIL = import.meta.env.VITE_CONTACT_EMAIL ?? 'contact@gmail.com';
 const SUPPORT_EMAIL  = import.meta.env.VITE_SUPPORT_EMAIL  ?? 'support@gmail.com';
@@ -27,6 +30,7 @@ const TELEGRAM_HANDLE = TELEGRAM_URL.replace('https://t.me/', '@');
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [accepted, setAccepted] = useState(false);
   const [form, setForm] = useState({ name: '', contact: '', plan: '', message: '' });
 
   const handleSubmit = (e: FormEvent) => {
@@ -131,6 +135,25 @@ export function ContactForm() {
                   onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                 />
               </FormGroup>
+                            <FormAgreement>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={accepted}
+                    onChange={(e) => setAccepted(e.target.checked)}
+                    required
+                  />
+
+                  <span>
+                    I have read and agree to the{' '}
+                    <Link to="/terms">Terms of Use</Link>,{' '}
+                    <Link to="/privacy">Privacy Policy</Link> and{' '}
+                    <Link to="/disclaimer">Risk Disclaimer</Link>.
+                  </span>
+                </label>
+              </FormAgreement>
+              {/* <FormSubmit type="submit"></FormSubmit> */}
+              
 
               <FormSubmit type="submit">Send Request →</FormSubmit>
               <FormDisclaimer>
