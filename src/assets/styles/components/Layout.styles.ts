@@ -6,6 +6,18 @@ const shimmer = keyframes`
   100% { background-position: 200% center; }
 `;
 
+const alertReveal = keyframes`
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+`;
+
 /* --- Contact Section --- */
 
 export const ContactSection = styled.section`
@@ -250,6 +262,65 @@ export const FormCard = styled.div`
   }
 `;
 
+export const FormSuccessAlert = styled.div`
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  margin-bottom: 22px;
+  padding: 16px 18px;
+
+  border: 1px solid rgba(57, 255, 20, 0.28);
+  border-radius: ${theme.borderRadius.md};
+  background: linear-gradient(
+    135deg,
+    rgba(57, 255, 20, 0.18),
+    rgba(57, 255, 20, 0.06)
+  );
+  box-shadow:
+    0 0 0 1px rgba(57, 255, 20, 0.05),
+    0 18px 40px rgba(0, 0, 0, 0.28);
+
+  backdrop-filter: blur(12px);
+
+  animation: ${alertReveal} 0.35s ease both;
+
+  .icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 999px;
+    background: rgba(57, 255, 20, 0.12);
+    border: 1px solid rgba(57, 255, 20, 0.22);
+
+    font-size: 18px;
+  }
+
+  .content {
+    min-width: 0;
+  }
+
+  .title {
+    font-family: ${theme.fonts.heading};
+    font-size: 15px;
+    font-weight: 700;
+    color: ${theme.colors.primary.white};
+    margin-bottom: 4px;
+  }
+
+  .text {
+    font-family: ${theme.fonts.body};
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+  }
+`;
+
 export const FormTitle = styled.h3`
   font-family: ${theme.fonts.heading};
   font-size: 22px;
@@ -380,8 +451,6 @@ export const FormDisclaimer = styled.p`
   margin-top: 16px;
   line-height: 1.6;
 `;
-
-import { Link } from 'react-router-dom';
 
 export const FormAgreement = styled.div`
   margin: 18px 0 20px;

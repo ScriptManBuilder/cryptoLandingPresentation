@@ -109,7 +109,7 @@ export default function DataCore() {
     const scene = new THREE.Scene();
 
     /* ── Camera ── */
-    const camera = new THREE.PerspectiveCamera(55, 1, 0.1, 100);
+    const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
     camera.position.set(0, 0, getCameraZ());
 
     /* ── Renderer ── */

@@ -68,12 +68,14 @@ export default function FAQ() {
         <FAQList>
           {FAQS.map((faq, i) => (
             <FAQItem key={faq.q} $open={openIndex === i}>
-              <FAQQuestion onClick={() => toggle(i)}>
+              <FAQQuestion type="button" onClick={() => toggle(i)}>
                 <span className="text">{faq.q}</span>
-                <span className="icon">{openIndex === i ? '−' : '+'}</span>
+                <span className={`icon ${openIndex === i ? 'open' : ''}`}>▼</span>
               </FAQQuestion>
               <FAQAnswer $open={openIndex === i}>
-                <p>{faq.a}</p>
+                <div>
+                  <p>{faq.a}</p>
+                </div>
               </FAQAnswer>
             </FAQItem>
           ))}

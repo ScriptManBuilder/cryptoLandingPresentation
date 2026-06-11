@@ -12,87 +12,151 @@ export const FAQSection = styled.section`
 `;
 
 export const FAQList = styled.div`
-  max-width: 720px;
+  max-width: 760px;
   margin: 64px auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  border: 1px solid ${theme.colors.primary.border};
+
   border-radius: ${theme.borderRadius.xl};
+
   overflow: hidden;
-  box-shadow: ${theme.colors.shadows.cardShadow};
-  backdrop-filter: blur(12px);
-  background: ${theme.colors.primary.cardBg};
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.02),
+      rgba(255,255,255,.01)
+    );
+
+  border: 1px solid ${theme.colors.primary.border};
+
+  backdrop-filter: blur(16px);
+
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.02),
+    0 20px 40px rgba(0,0,0,.35);
+
+  @media (max-width: 640px) {
+    margin-top: 40px;
+  }
+    @media (max-width: 375px) {
+  .text {
+    font-size: 13px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
 `;
 
 export const FAQItem = styled.div<{ $open?: boolean }>`
+  position: relative;
   border-bottom: 1px solid ${theme.colors.primary.border};
+
   background: ${({ $open }) =>
-    $open ? 'rgba(57,255,20,0.04)' : 'transparent'};
-  transition: ${theme.transitions.normal};
+    $open
+      ? 'linear-gradient(90deg, rgba(57,255,20,.06), transparent)'
+      : 'transparent'};
+
+  transition: all 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: ${({ $open }) => ($open ? '3px' : '0')};
+    height: 100%;
+    background: ${theme.colors.primary.accentDark};
+    transition: width 0.3s ease;
+  }
 
   &:last-child {
     border-bottom: none;
   }
 `;
-
 export const FAQQuestion = styled.button`
   width: 100%;
   text-align: left;
   padding: 22px 28px;
-  background: none;
-  border: none;
+
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 16px;
+
+  background: transparent;
+  border: none;
   cursor: pointer;
 
+  .icon {
+    display: inline-block;
+    transition: transform 1s ease;
+    transform: rotate(0deg);
+  }
+
+  .icon.open {
+    transform: rotate(90deg);
+  }
+
+  @media (max-width: 640px) {
+    padding: 18px 20px;
+    gap: 12px;
+  }
+
+  @media (max-width: 380px) {
+    padding: 16px;
+  }
+
   .text {
+    flex: 1;
+
     font-family: ${theme.fonts.heading};
     font-size: 15px;
     font-weight: 600;
-    color: ${theme.colors.primary.text};
-    transition: color 0.2s;
-  }
+    line-height: 1.5;
 
-  .icon {
-    flex-shrink: 0;
-    width: 24px;
-    height: 24px;
-    background: rgba(57, 255, 20, 0.07);
-    border: 1px solid ${theme.colors.primary.border};
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: ${theme.colors.primary.accentDark};
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1;
-    transition: ${theme.transitions.normal};
+    color: ${theme.colors.primary.text};
+
+    transition: color 0.2s ease;
+
+    @media (max-width: 640px) {
+      font-size: 14px;
+    }
   }
 
   &:hover .text {
     color: ${theme.colors.primary.accentDark};
   }
-
-  &:hover .icon {
-    border-color: ${theme.colors.primary.borderMed};
-    background: rgba(57, 255, 20, 0.12);
-  }
 `;
 
 export const FAQAnswer = styled.div<{ $open?: boolean }>`
-  max-height: ${({ $open }) => ($open ? '220px' : '0')};
-  overflow: hidden;
-  transition: max-height 0.35s ease;
+  display: grid;
+  grid-template-rows: ${({ $open }) =>
+    $open ? '1fr' : '0fr'};
+
+  transition: grid-template-rows 0.35s ease;
+
+  > div {
+    overflow: hidden;
+  }
 
   p {
-    font-family: ${theme.fonts.body};
-    padding: 0 28px 22px;
+    padding: 0 28px 24px;
+
     font-size: 14px;
-    color: ${theme.colors.primary.textMuted};
     line-height: 1.8;
+
+    color: ${theme.colors.primary.textMuted};
+
+    @media (max-width: 640px) {
+      padding: 0 20px 20px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 380px) {
+      padding: 0 16px 16px;
+    }
   }
 `;
+

@@ -1,4 +1,5 @@
 import Hero from './components/Hero/Hero';
+import SiteNotice from './components/SiteNotice/SiteNotice';
 import WhatItDoes from './components/WhatItDoes/WhatItDoes';
 import Features from './components/Features/Features';
 import Technology from './components/Technology/Technology';
@@ -20,6 +21,7 @@ function MainPage() {
     <>
       <Header />
       <main>
+        <SiteNotice />
         <Hero />
         <WhatItDoes />
         <Features />

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import {
   ContactSection,
   ContactLayout,
@@ -18,7 +18,8 @@ import {
   FormRow,
   FormSubmit,
   FormDisclaimer,
-  FormAgreement, 
+  FormAgreement,
+  FormSuccessAlert,
 } from '../../assets/styles/components/Layout.styles';
 import { Link } from 'react-router-dom';
 
@@ -33,11 +34,34 @@ export function ContactForm() {
   const [accepted, setAccepted] = useState(false);
   const [form, setForm] = useState({ name: '', contact: '', plan: '', message: '' });
 
+  useEffect(() => {
+    if (!submitted) {
+      return;
+    }
+
+    const timer = window.setTimeout(() => {
+      setSubmitted(false);
+    }, 8000);
+
+    return () => window.clearTimeout(timer);
+  }, [submitted]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // Placeholder — wire to backend / email service
     setSubmitted(true);
+    clearForm();
   };
+
+  const clearForm = () => {
+    setForm({ name: '', contact: '', plan: '', message: '' });
+    setAccepted(false);
+  };
+
+
+
+
+
 
   return (
     <ContactSection id="contact">
@@ -81,13 +105,25 @@ export function ContactForm() {
 
         <FormCard>
           {submitted ? (
-            <div style={{ textAlign: 'center', padding: '40px 0' }}>
-              <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-              <FormTitle style={{ color: '#39FF14', marginBottom: 8 }}>Request Received</FormTitle>
-              <FormSubtitle style={{ marginBottom: 0 }}>
-                We'll reach out within 24 hours with your access details.
-              </FormSubtitle>
-            </div>
+            <>
+              <FormSuccessAlert role="status" aria-live="polite">
+                <span className="icon">✓</span>
+                <div className="content">
+                  <div className="title">Request received</div>
+                  <div className="text">
+                    We&apos;ll reach out within 24 hours with your access details.
+                  </div>
+                </div>
+              </FormSuccessAlert>
+
+              <div style={{ textAlign: 'center', padding: '28px 0 10px' }}>
+                <FormTitle style={{ color: '#39FF14', marginBottom: 8 }}>Message sent</FormTitle>
+                <FormSubtitle style={{ marginBottom: 0 }}>
+                  Thanks. The alert will stay visible for 8 seconds, then the form will be ready again.
+                </FormSubtitle>
+             
+              </div>
+            </>
           ) : (
             <form onSubmit={handleSubmit}>
               <FormTitle>Request Access</FormTitle>
@@ -101,6 +137,7 @@ export function ContactForm() {
                     placeholder="John Doe"
                     value={form.name}
                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+                    maxLength={120}
                     required
                   />
                 </FormGroup>
@@ -112,6 +149,7 @@ export function ContactForm() {
                     placeholder="Starter / Pro / Lifetime"
                     value={form.plan}
                     onChange={e => setForm(f => ({ ...f, plan: e.target.value }))}
+                    maxLength={120}
                   />
                 </FormGroup>
               </FormRow>
@@ -123,6 +161,7 @@ export function ContactForm() {
                   placeholder="@yourusername  or  you@email.com"
                   value={form.contact}
                   onChange={e => setForm(f => ({ ...f, contact: e.target.value }))}
+                  maxLength={120}
                   required
                 />
               </FormGroup>
@@ -133,6 +172,7 @@ export function ContactForm() {
                   placeholder="Tell us about your trading experience, questions, or anything else..."
                   value={form.message}
                   onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                  maxLength={500}
                 />
               </FormGroup>
                             <FormAgreement>
