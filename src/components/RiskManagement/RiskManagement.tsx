@@ -11,7 +11,7 @@ import { SectionContainer, SectionLabel, SectionTitle, SectionSubtitle } from '.
 
 const RISKS = [
   {
-    icon: '�',
+    icon: '🛡️',
     title: 'Daily Loss Guard',
     desc: 'Bot pauses for the day when total daily PnL loss exceeds the configured % of deposit. Configurable: e.g. 8% = stop at −80 USDT on a $1000 account.',
   },

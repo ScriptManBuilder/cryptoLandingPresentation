@@ -34,6 +34,29 @@ const progressShrink = keyframes`
   }
 `;
 
+const closeButtonPulse = keyframes`
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(57, 255, 20, 0.12),
+      0 0 16px rgba(57, 255, 20, 0.08);
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(57, 255, 20, 0),
+      0 0 22px rgba(57, 255, 20, 0.22);
+    transform: translateY(-1px) scale(1.04);
+  }
+
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(57, 255, 20, 0),
+      0 0 16px rgba(57, 255, 20, 0.08);
+    transform: translateY(0) scale(1);
+  }
+`;
+
 const Overlay = styled.div`
   position: fixed;
   top: 88px;
@@ -293,7 +316,7 @@ const Text = styled.p`
 const CloseButton = styled.button`
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid rgba(57, 255, 20, 0.16);
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.8);
@@ -303,12 +326,34 @@ const CloseButton = styled.button`
   cursor: pointer;
   transition: ${theme.transitions.normal};
   flex-shrink: 0;
+  animation: ${closeButtonPulse} 2.8s ease-in-out infinite;
+  will-change: transform, box-shadow;
 
   &:hover {
-    background: rgba(57, 255, 20, 0.1);
+    animation: none;
+
+    background: rgba(57, 255, 20, 0.12);
+
     color: ${theme.colors.primary.white};
-    border-color: rgba(57, 255, 20, 0.3);
+
+    border-color: rgba(57, 255, 20, 0.35);
+
+    box-shadow:
+      0 0 18px rgba(57,255,20,0.18),
+      0 0 30px rgba(57,255,20,0.08);
+
     transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.96);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 3px rgba(57, 255, 20, 0.24),
+      0 0 20px rgba(57, 255, 20, 0.2);
   }
 
   @media (max-width: 640px) {
@@ -316,15 +361,22 @@ const CloseButton = styled.button`
     align-self: flex-start;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+
   @media (max-width: 420px) {
     width: 30px;
     height: 30px;
-    border-radius: 9px;
+    border-radius: 10px;
+    font-size: 14px;
   }
 
   @media (max-width: 320px) {
     width: 28px;
     height: 28px;
+    border-radius: 8px;
+    font-size: 13px;
   }
 `;
 const ProgressTrack = styled.div`
@@ -347,7 +399,7 @@ const ProgressBar = styled.div<{ $duration: number; $closing: boolean }>`
 `;
 
 export default function SiteNotice() {
-  const duration = 60000;
+  const duration = 60000; // change to 60 seconds
   const [isVisible, setIsVisible] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const [secondsLeft, setSecondsLeft] = useState(60);
@@ -400,7 +452,7 @@ export default function SiteNotice() {
               </HeaderText>
 
               <CloseButton onClick={handleClose} aria-label="Close notice">
-                ×
+                ✕
               </CloseButton>
             </HeaderRow>
 
